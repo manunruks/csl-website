@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Codex Session Librarian</title>
+  <meta name="description" content="A local tool for finding, forking and transferring coding-agent sessions. Native Codex and Claude Code handoffs, with experimental cross-CLI conversion.">
+  <link rel="canonical" href="https://csl.vitral.ai/">
+  <meta property="og:url" content="https://csl.vitral.ai/">
+  <meta property="og:title" content="Codex Session Librarian">
+  <meta property="og:description" content="Find a conversation, hand it to someone else, or continue it in another supported CLI. A project by Vitral.">
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+  <aside class="sidebar">
+    <a class="wordmark" href="#overview" aria-label="CSL overview">csl<span aria-hidden="true">.</span></a>
+    <p class="project-name">Codex Session <br>Librarian</p>
+    <p class="byline">A project by <a href="https://vitral.ai">Vitral</a></p>
+    <nav aria-label="On this page">
+      <a href="#overview">Overview</a>
+      <a href="#install">Getting started</a>
+      <a href="#finding">Finding a session</a>
+      <a href="#handoff">Passing work on</a>
+      <a href="#forks">Working forks</a>
+      <a href="#conversion">CLI conversion</a>
+      <a href="#demo">Worked example</a>
+      <a href="#limits">Limits &amp; privacy</a>
+      <a href="#project">Project</a>
+    </nav>
+    <div class="sidebar-links">
+      <a href="https://github.com/warevista/codex-session-librarian">Source code</a>
+      <a href="https://github.com/warevista/codex-session-librarian/issues">Issue tracker</a>
+      <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/COMMANDS.md">Command reference</a>
+    </div>
+    <p class="sidebar-note">Linux · Python 3.11+<br>No CSL account required.</p>
+  </aside>
+
+  <main id="main">
+    <section id="overview">
+      <h1>Codex Session Librarian</h1>
+      <p class="intro">A local tool for finding, forking and transferring coding-agent sessions.</p>
+      <p>A useful conversation contains more than its last answer. It records decisions, discarded approaches, tool results and the reasons a project ended up where it did. CSL helps you find that conversation and continue working from its native history.</p>
+      <p>You can reopen a Codex session, make an independent working copy, or hand a snapshot to another person. Native transfers support Codex and Claude Code. An explicit, experimental conversion path also moves supported history between the two CLIs.</p>
+      <p>CSL works with local JSONL records. It does not host your conversations or ask you to create another account. The receiving CLI uses its own authentication, configuration and tools.</p>
+      <p class="reading-links"><a href="#install">Install CSL</a> · <a href="#demo">Read an executed example</a> · <a href="https://github.com/warevista/codex-session-librarian#readme">User guide</a></p>
+      <p class="release-note">The 0.1.0 candidate adds secret review and a conversion fix under Apache-2.0. It is in <a href="https://github.com/warevista/codex-session-librarian/pull/1">upstream review</a>; installation from the main branch does not yet include those changes.</p>
+    </section>
+
+    <section id="install">
+      <h2>Getting started</h2>
+      <p>You need Linux, Git and Python 3.11 or later. The core uses the Python standard library; there is no pip install or virtual environment to set up. Run the following in the directory where you keep your tools:</p>
+      <div class="code-heading"><span>Install from the current main branch</span><button type="button" data-copy="install-commands">Copy</button></div>
+      <pre><code id="install-commands">git clone https://github.com/warevista/codex-session-librarian.git
+cd codex-session-librarian
+./install.sh
+
+# If ~/.local/bin is not already on PATH:
+export PATH="$HOME/.local/bin:$PATH"
+csl --help</code></pre>
+      <p>The installed launcher points to the checkout. Updating that checkout with <code>git pull --ff-only</code> updates the tool. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is only needed for the optional team exchange; ZIP transfers work without it.</p>
+      <p>For command-by-command options, see the <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
+    </section>
+
+    <section id="finding">
+      <h2>Finding a session</h2>
+      <p>The Codex library indexes local history so you can search by words and inspect the evidence behind a match. Use it when you remember what a discussion was about, but not which session contains it.</p>
+      <pre><code>csl index --prune
+csl recall "workspace publishing"
+csl show SESSION_UUID</code></pre>
+      <p>Search is lexical, not embedding-based semantic search. Read the matching snippets before assuming you have found the right conversation. Claude currently has basic session discovery through <code>csl sessions --provider claude</code>, rather than the complete Codex library command set.</p>
+    </section>
+
+    <section id="handoff">
+      <h2>Passing work on</h2>
+      <p>The simplest handoff is a ZIP. Export a session, send the package through a channel you trust, and let the recipient inspect it before importing:</p>
+      <pre><code># Sender
+csl export SESSION_UUID --to ~/Downloads
+
+# Recipient, using the actual received filename
+csl import handoff.csl.zip --list
+csl import handoff.csl.zip --cwd ~/work/project --open</code></pre>
+      <p>Import creates a new session identity. The source stays intact and each person continues independently. This is a snapshot handoff, not live synchronization or an automatic merge of subsequent work.</p>
+      <p>For regular team use, CSL can exchange snapshots through releases in a <strong>private GitHub repository</strong>. That exchange is separate from the CSL source-code repository. Each person connects using their own GitHub account:</p>
+      <pre><code>csl team connect OWNER/PRIVATE-EXCHANGE
+csl share SESSION_UUID --title "Workspace publishing"
+csl inbox
+csl receive SHARE_ID --cwd ~/work/project --open</code></pre>
+      <p>A package contains supported conversation records and already embedded assets. It does not bring the project repository, installed tools, credential files or external attachments with it. The recipient needs a suitable local working directory.</p>
+      <p>See <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/TRANSFERS.md">transfers</a> and <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/SHARING.md">team sharing</a> for package validation, repeat imports and other details.</p>
+    </section>
+
+    <section id="forks">
+      <h2>Working forks</h2>
+      <p>A native Codex clone is useful when you want an agent to investigate a separate direction without modifying the original conversation. The agent visibility option keeps that copy outside the usual interactive session picker:</p>
+      <pre><code>csl native-clone SESSION_UUID --visibility agent
+# Continue using the codex exec resume command CSL prints.</code></pre>
+      <p>Clones receive a fresh UUID. You can also create an archived snapshot or an ordinary interactive copy. Visibility is a presentation choice, not access control or filesystem isolation. CSL does not automatically delete an agent fork when its task ends.</p>
+    </section>
+
+    <section id="conversion">
+      <h2>Moving between CLIs</h2>
+      <p>Native handoffs keep the same CLI format. Cross-CLI conversion is a separate, explicit operation through the versioned <code>csl-conversation</code> format:</p>
+      <pre><code>csl convert SESSION_UUID --to claude --cwd ~/work/project
+csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
+      <p>Conversion supports a bounded profile of text, completed tools, references, embedded images and PDFs. Media conversion needs an optional isolated decoder. Unsupported or inconsistent state can be rejected; CSL does not silently promise to recover an entire opaque checkpoint.</p>
+      <table>
+        <caption>Current scope at a glance</caption>
+        <thead><tr><th>Operation</th><th>Scope</th></tr></thead>
+        <tbody>
+          <tr><td>Native ZIP and team transfers</td><td>Codex and Claude Code</td></tr>
+          <tr><td>Indexed search and evidence recall</td><td>Codex; not the full Claude library</td></tr>
+          <tr><td>Native working forks</td><td>Codex; experimental native format</td></tr>
+          <tr><td>Cross-CLI conversion</td><td>Explicit and experimental in both directions</td></tr>
+          <tr><td>Embedded image and PDF conversion</td><td>Supported profile; optional decoder required</td></tr>
+        </tbody>
+      </table>
+      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The maintained <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
+    </section>
+
+    <section id="demo">
+      <h2>A worked example</h2>
+      <p>This example was run with a synthetic conversation. An early draft used cobalt and Postgres; a later instruction changed that to amber42 and SQLite. A historical tool result contained a third fact, <code>DEMO-617</code>. The continuation question asked for the latest decisions and that tool-only fact without supplying the answers.</p>
+      <p>The example exports and inspects a ZIP, imports a new identity, and converts a Claude fixture to Codex. Two real Codex continuations then recovered all three facts. You can read the recorded steps below. These are results from an executed fixture, not a terminal running in this page.</p>
+      <figure class="worked-example">
+        <figcaption><span id="step-number">01 / 05</span> <strong id="step-title">Loading recorded example</strong></figcaption>
+        <nav id="step-dots" aria-label="Example steps"></nav>
+        <pre class="example-command"><code id="demo-command">Loading the example…</code></pre>
+        <div id="demo-output" class="example-output" aria-live="polite"></div>
+        <p id="result-label" class="example-result">Synthetic history only.</p>
+        <div class="example-controls"><button type="button" id="previous-step">Previous</button><button type="button" id="next-step">Next</button><button type="button" id="play-demo" aria-pressed="false">Play steps</button></div>
+      </figure>
+      <p class="small-text"><a href="./demo.json">Recorded evidence (JSON)</a> · <a href="./demo.py" download="csl-demo.py">Reproduction script</a></p>
+      <details id="verification-details"><summary>What these checks establish</summary><p>The offline run checks source hashes, package checksums, fresh identities and preservation of the selected history. The recorded live example used Codex 0.166.0 and gpt-6.1-sol, with tools disabled. Both continuations passed. This is evidence for the tested fixture and configuration, not universal compatibility.</p><p>The script defaults to offline operation and uses temporary homes. Run it against a checkout containing the 0.1.0 candidate with <code>python3 csl-demo.py --repo /path/to/checkout --out demo.json</code>. Paid reproduction is a separate explicit option.</p></details>
+      <details id="format-details"><summary>Native loading and model recall are different checks</summary><p>A structural check can show that a package is well formed. A native loader check can show that a CLI reconstructs a request from it. A real continuation adds evidence that a model can use the history. None of those alone guarantees that every session fits every model’s context window. The <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/LIVE_VERIFICATION.md">live verification documentation</a> records the broader test method and historical results.</p></details>
+    </section>
+
+    <section id="limits">
+      <h2>Limits and privacy</h2>
+      <p><strong>Review conversation contents before sharing them.</strong> Tool output and ordinary messages can contain credentials or other private information, even when no credential files are collected. Private GitHub access and checksums do not remove that information.</p>
+      <p>The 0.1.0 candidate adds local secret detection before export or share. For each finding, the user can keep it, scrub it from the output copy, or cancel. Non-interactive use requires an explicit policy when findings exist. These changes are in the release PR, pending upstream integration.</p>
+      <p>Detection is partial. Binary attachments, opaque state and values outside the recognized patterns need separate review. A successful scan does not certify that a conversation is safe to share. Scrubbing changes the exported copy, not the source history.</p>
+      <p>CSL does not copy authentication or translate permissions between tools. Imported instructions are historical context, not new authority to execute a task. Account access, model availability and the behavior of future CLI versions remain outside the transfer’s guarantees.</p>
+    </section>
+
+    <section id="project">
+      <h2>The project</h2>
+      <p>CSL is a project by <a href="https://vitral.ai">Vitral</a>. It grew out of the practical need to locate and hand over useful agent conversations. The tool can be used independently of Vitral’s workspace product.</p>
+      <p>Apache-2.0 has been selected for the 0.1.0 candidate, including attribution to Vitral. <a href="https://github.com/warevista/codex-session-librarian/pull/1">Release PR #1</a> contains the license, secret-review changes, conversion correction and reproducible demo. The candidate is awaiting upstream integration; a prepared version is not a published release.</p>
+      <p>Contributions should start with a reproducible problem, synthetic history and a focused change. Reports about a real workflow are useful; please do not post private conversation exports or credentials in public issues. The <a href="https://github.com/warevista/codex-session-librarian/issues">issue tracker</a> is the place for public bug reports and proposals.</p>
+      <p>Codex and Claude Code are products of their respective owners. Their software, services and marks are not licensed by the CSL project.</p>
+    </section>
+
+    <footer><p>Codex Session Librarian · <a href="https://vitral.ai">Vitral</a></p><a href="#overview">Back to the beginning</a></footer>
+  </main>
+</div>
+<div id="copy-status" class="copy-status" role="status" aria-live="polite"></div>
+</body>
+</html>
