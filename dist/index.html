@@ -48,22 +48,22 @@
       <p>You can reopen a Codex session, make an independent working copy, or hand a snapshot to another person. Native transfers support Codex and Claude Code. An explicit, experimental conversion path also moves supported history between the two CLIs.</p>
       <p>CSL works with local JSONL records. It does not host your conversations or ask you to create another account. The receiving CLI uses its own authentication, configuration and tools.</p>
       <p class="reading-links"><a href="#install">Install CSL</a> · <a href="#demo">Read an executed example</a> · <a href="https://github.com/warevista/codex-session-librarian#readme">User guide</a></p>
-      <p class="release-note"><a href="https://github.com/warevista/codex-session-librarian/pull/1">PR #1 was merged on November 4</a>. Additional sanitization, identity-validation and interrupted-import fixes are available in the <a href="https://github.com/warevista/codex-session-librarian/pull/6">consolidation candidate, PR #6</a>. It passed <a href="https://github.com/manunruks/codex-session-librarian/actions/runs/42086700828">253 isolated tests with native and media checks enabled</a>. The CLI identifies as 0.1.0, but <a href="https://github.com/warevista/codex-session-librarian/releases">no GitHub Release has been published</a>; the commands below install the tested candidate from its contributor fork.</p>
+      <p class="release-note"><a href="https://github.com/warevista/codex-session-librarian/pull/6">PR #6 was merged into upstream main on November 5</a>, including the sanitization, identity-validation and interrupted-import fixes. The integrated snapshot passed 253 isolated tests with native and media checks enabled, and its <a href="https://github.com/warevista/codex-session-librarian/actions/runs/42095224052">upstream CI is green</a>. The CLI identifies as 0.1.0, but <a href="https://github.com/warevista/codex-session-librarian/releases">no GitHub Release has been published</a>; the commands below install the verified upstream snapshot, not a release tag.</p>
     </section>
 
     <section id="install">
       <h2>Getting started</h2>
       <p>You need Linux, Git and Python 3.11 or later. The core uses the Python standard library; there is no pip install or virtual environment to set up. Run the following in the directory where you keep your tools:</p>
-      <div class="code-heading"><span>Install the November 5 development snapshot</span><button type="button" data-copy="install-commands">Copy</button></div>
-      <pre><code id="install-commands">git clone https://github.com/manunruks/codex-session-librarian.git
+      <div class="code-heading"><span>Install the integrated November 5 snapshot</span><button type="button" data-copy="install-commands">Copy</button></div>
+      <pre><code id="install-commands">git clone https://github.com/warevista/codex-session-librarian.git
 cd codex-session-librarian
-git checkout --detach 7f281af570ae2e1b0ac22f04c00a557e8a3c430e
+git checkout --detach 4c7dee029a4525491307030998b79baa0b25a7e0
 ./install.sh
 
 # If ~/.local/bin is not already on PATH:
 export PATH="$HOME/.local/bin:$PATH"
 csl --help</code></pre>
-      <p>This fixes the installed source to <a href="https://github.com/manunruks/codex-session-librarian/commit/7f281af570ae2e1b0ac22f04c00a557e8a3c430e"><code>7f281af</code></a>; it is not a release tag. Keep the checkout: the installed launcher points to it. To track development, clone the <a href="https://github.com/warevista/codex-session-librarian">upstream repository</a> separately and use <code>git pull --ff-only</code> on its main branch. That branch does not contain PR #6 until merge. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is only needed for the optional team exchange; ZIP transfers work without it.</p>
+      <p>This fixes the installed source to <a href="https://github.com/warevista/codex-session-librarian/commit/4c7dee029a4525491307030998b79baa0b25a7e0"><code>4c7dee0</code></a>; it is not a release tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is only needed for the optional team exchange; ZIP transfers work without it.</p>
       <p>For command-by-command options, see the <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
     </section>
 
@@ -120,7 +120,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
           <tr><td>Embedded image and PDF conversion</td><td>Supported profile; optional decoder required</td></tr>
         </tbody>
       </table>
-      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The candidate's <a href="https://github.com/manunruks/codex-session-librarian/blob/7f281af570ae2e1b0ac22f04c00a557e8a3c430e/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/manunruks/codex-session-librarian/blob/7f281af570ae2e1b0ac22f04c00a557e8a3c430e/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
+      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The snapshot's <a href="https://github.com/warevista/codex-session-librarian/blob/4c7dee029a4525491307030998b79baa0b25a7e0/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/warevista/codex-session-librarian/blob/4c7dee029a4525491307030998b79baa0b25a7e0/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
     </section>
 
     <section id="demo">
@@ -143,7 +143,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
     <section id="limits">
       <h2>Limits and privacy</h2>
       <p><strong>Review conversation contents before sharing them.</strong> Tool output and ordinary messages can contain credentials or other private information, even when no credential files are collected. Private GitHub access and checksums do not remove that information.</p>
-      <p>Local secret review is included on main. For each finding, the user can keep it, scrub it from the output copy, or cancel. Non-interactive use requires an explicit policy when findings exist. The candidate linked above fixes tested sanitization and transfer-validation edge cases; those additional fixes await upstream merge. Manually review outgoing packages and do not treat scrub as a safety certificate.</p>
+      <p>Local secret review and the tested consolidation fixes are integrated on main. For each finding, the user can keep it, scrub it from the output copy, or cancel. Non-interactive use requires an explicit policy when findings exist. Manually review outgoing packages and do not treat scrub as a safety certificate.</p>
       <p>Detection is partial. Binary attachments, opaque state and values outside the recognized patterns need separate review. A successful scan does not certify that a conversation is safe to share. Scrubbing changes the exported copy, not the source history.</p>
       <p>CSL does not copy authentication or translate permissions between tools. Imported instructions are historical context, not new authority to execute a task. Account access, model availability and the behavior of future CLI versions remain outside the transfer’s guarantees.</p>
     </section>
