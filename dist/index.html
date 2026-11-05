@@ -33,9 +33,9 @@
       <a href="#project">Project</a>
     </nav>
     <div class="sidebar-links">
-      <a href="https://github.com/warevista/codex-session-librarian">Source code</a>
-      <a href="https://github.com/warevista/codex-session-librarian/issues">Issue tracker</a>
-      <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/COMMANDS.md">Command reference</a>
+      <a href="https://github.com/vitral-ai/codex-session-librarian">Source code</a>
+      <a href="https://github.com/vitral-ai/codex-session-librarian/issues">Issue tracker</a>
+      <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/COMMANDS.md">Command reference</a>
     </div>
     <p class="sidebar-note">Linux · Python 3.11+<br>No CSL account required.</p>
   </aside>
@@ -47,15 +47,15 @@
       <p>A useful conversation contains more than its last answer. It records decisions, discarded approaches, tool results and the reasons a project ended up where it did. CSL helps you find that conversation and continue working from its native history.</p>
       <p>You can reopen a Codex session, make an independent working copy, or hand a snapshot to another person. Native transfers support Codex and Claude Code. An explicit, experimental conversion path also moves supported history between the two CLIs.</p>
       <p>CSL works with local JSONL records. It does not host your conversations or ask you to create another account. The receiving CLI uses its own authentication, configuration and tools.</p>
-      <p class="reading-links"><a href="#install">Install CSL</a> · <a href="#demo">Read an executed example</a> · <a href="https://github.com/warevista/codex-session-librarian#readme">User guide</a></p>
-      <p class="release-note"><a href="https://github.com/warevista/codex-session-librarian/releases/tag/v0.1.0">CSL 0.1.0 is published</a>, from commit <a href="https://github.com/warevista/codex-session-librarian/commit/edd05bb20eb145dea6178d548f1363b9516102af"><code>edd05bb</code></a>. Its integrated runtime passed 253 isolated tests with native and media checks enabled; the <a href="https://github.com/warevista/codex-session-librarian/actions/runs/42111325453">publication commit CI passed</a>. Installation from the published tag and the offline demonstration were verified in a clean temporary environment on Linux.</p>
+      <p class="reading-links"><a href="#install">Install CSL</a> · <a href="#demo">Read an executed example</a> · <a href="https://github.com/vitral-ai/codex-session-librarian#readme">User guide</a></p>
+      <p class="release-note"><a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.0">CSL 0.1.0 is published</a>, from commit <a href="https://github.com/vitral-ai/codex-session-librarian/commit/edd05bb20eb145dea6178d548f1363b9516102af"><code>edd05bb</code></a>. Its integrated runtime passed 253 isolated tests with native and media checks enabled; the <a href="https://github.com/vitral-ai/codex-session-librarian/actions/runs/42111325453">publication commit CI passed</a>. Installation from the published tag and the offline demonstration were verified in a clean temporary environment on Linux.</p>
     </section>
 
     <section id="install">
       <h2>Getting started</h2>
       <p>You need Linux, Git and Python 3.11 or later. The core uses the Python standard library; there is no pip install or virtual environment to set up. Run the following in the directory where you keep your tools:</p>
       <div class="code-heading"><span>Install the integrated November 5 snapshot</span><button type="button" data-copy="install-commands">Copy</button></div>
-      <pre><code id="install-commands">git clone --branch v0.1.0 https://github.com/warevista/codex-session-librarian.git
+      <pre><code id="install-commands">git clone --branch v0.1.0 https://github.com/vitral-ai/codex-session-librarian.git
 cd codex-session-librarian
 git checkout --detach v0.1.0
 ./install.sh
@@ -63,8 +63,8 @@ git checkout --detach v0.1.0
 # If ~/.local/bin is not already on PATH:
 export PATH="$HOME/.local/bin:$PATH"
 csl --help</code></pre>
-      <p>This installs the published <a href="https://github.com/warevista/codex-session-librarian/releases/tag/v0.1.0"><code>v0.1.0</code></a> tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is only needed for the optional team exchange; ZIP transfers work without it.</p>
-      <p>For command-by-command options, see the <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
+      <p>This installs the published <a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.0"><code>v0.1.0</code></a> tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is only needed for the optional team exchange; ZIP transfers work without it.</p>
+      <p>For command-by-command options, see the <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
     </section>
 
     <section id="finding">
@@ -92,7 +92,7 @@ csl share SESSION_UUID --title "Workspace publishing"
 csl inbox
 csl receive SHARE_ID --cwd ~/work/project --open</code></pre>
       <p>A package contains supported conversation records and already embedded assets. It does not bring the project repository, installed tools, credential files or external attachments with it. The recipient needs a suitable local working directory.</p>
-      <p>See <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/TRANSFERS.md">transfers</a> and <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/SHARING.md">team sharing</a> for package validation, repeat imports and other details.</p>
+      <p>See <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/TRANSFERS.md">transfers</a> and <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/SHARING.md">team sharing</a> for package validation, repeat imports and other details.</p>
     </section>
 
     <section id="forks">
@@ -120,7 +120,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
           <tr><td>Embedded image and PDF conversion</td><td>Supported profile; optional decoder required</td></tr>
         </tbody>
       </table>
-      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The release's <a href="https://github.com/warevista/codex-session-librarian/blob/v0.1.0/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/warevista/codex-session-librarian/blob/v0.1.0/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
+      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The release's <a href="https://github.com/vitral-ai/codex-session-librarian/blob/v0.1.0/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/vitral-ai/codex-session-librarian/blob/v0.1.0/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
     </section>
 
     <section id="demo">
@@ -137,7 +137,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
       </figure>
       <p class="small-text"><a href="./demo.json">Recorded evidence (JSON)</a> · <a href="./demo.py" download="csl-demo.py">Reproduction script</a></p>
       <details id="verification-details"><summary>What these checks establish</summary><p>The offline run checks source hashes, package checksums, fresh identities and preservation of the selected history. The recorded November 2 live example used Codex 0.166.0 and gpt-6.1-sol, with tools disabled. Both continuations passed. This is evidence for the tested fixture and configuration, not universal compatibility or a new live test of every later commit.</p><p>The script defaults to offline operation and uses temporary homes. Run it against the pinned checkout with <code>python3 csl-demo.py --repo /path/to/checkout --out demo.json</code>. Paid reproduction is a separate explicit option.</p></details>
-      <details id="format-details"><summary>Native loading and model recall are different checks</summary><p>A structural check can show that a package is well formed. A native loader check can show that a CLI reconstructs a request from it. A real continuation adds evidence that a model can use the history. None of those alone guarantees that every session fits every model’s context window. The <a href="https://github.com/warevista/codex-session-librarian/blob/main/docs/LIVE_VERIFICATION.md">live verification documentation</a> records the broader test method and historical results.</p></details>
+      <details id="format-details"><summary>Native loading and model recall are different checks</summary><p>A structural check can show that a package is well formed. A native loader check can show that a CLI reconstructs a request from it. A real continuation adds evidence that a model can use the history. None of those alone guarantees that every session fits every model’s context window. The <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/LIVE_VERIFICATION.md">live verification documentation</a> records the broader test method and historical results.</p></details>
     </section>
 
     <section id="limits">
@@ -151,8 +151,8 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
     <section id="project">
       <h2>The project</h2>
       <p>CSL is a project by <a href="https://vitral.ai">Vitral</a>. It grew out of the practical need to locate and hand over useful agent conversations. The tool can be used independently of Vitral’s workspace product.</p>
-      <p>CSL is licensed under <a href="https://github.com/warevista/codex-session-librarian/blob/main/LICENSE">Apache-2.0</a>, with Vitral attribution. PR #1 is integrated. A prepared version and a merged PR are distinct from a published release; see <a href="https://github.com/warevista/codex-session-librarian/releases">GitHub Releases</a> for publication status.</p>
-      <p>Contributions should start with a reproducible problem, synthetic history and a focused change. Reports about a real workflow are useful; please do not post private conversation exports or credentials in public issues. The <a href="https://github.com/warevista/codex-session-librarian/issues">issue tracker</a> is the place for public bug reports and proposals.</p>
+      <p>CSL is licensed under <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/LICENSE">Apache-2.0</a>, with Vitral attribution. PR #1 is integrated. A prepared version and a merged PR are distinct from a published release; see <a href="https://github.com/vitral-ai/codex-session-librarian/releases">GitHub Releases</a> for publication status.</p>
+      <p>Contributions should start with a reproducible problem, synthetic history and a focused change. Reports about a real workflow are useful; please do not post private conversation exports or credentials in public issues. The <a href="https://github.com/vitral-ai/codex-session-librarian/issues">issue tracker</a> is the place for public bug reports and proposals.</p>
       <p>Codex and Claude Code are products of their respective owners. Their software, services and marks are not licensed by the CSL project.</p>
     </section>
 
