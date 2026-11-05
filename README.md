@@ -4,7 +4,7 @@ Live website: **https://csl.vitral.ai**. Public, without sign-in.
 
 CSL is a local tool for finding, forking and transferring coding-agent sessions,
 developed by Vitral. This repository contains the website, not the CLI itself.
-CLI source: https://github.com/warevista/codex-session-librarian.
+CLI source: https://github.com/vitral-ai/codex-session-librarian.
 
 ## Preview
 
