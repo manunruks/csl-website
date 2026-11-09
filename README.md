@@ -21,6 +21,6 @@ script are included; no personal conversations or credentials are included.
 ## License
 
 Apache-2.0, copyright 2026 Vitral AI Inc. See LICENSE and NOTICE. Product release
-status is described on the website and in the CLI repository. Version v0.1.0 is
-published; later main changes are Unreleased. Publishing website source does not
+status is described on the website and in the CLI repository. Version v0.1.1 is
+published with tool-display and recall corrections; v0.1.0 remains unchanged. Publishing website source does not
 change a released CLI tag.

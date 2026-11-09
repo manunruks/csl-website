@@ -48,22 +48,22 @@
       <p>You can reopen a Codex session, make an independent working copy, or hand a snapshot to another person. Native transfers support Codex and Claude Code. An explicit, experimental conversion path also moves supported history between the two CLIs.</p>
       <p>CSL works with local JSONL records. It does not host your conversations or ask you to create another account. The receiving CLI uses its own authentication, configuration and tools.</p>
       <p class="reading-links"><a href="#install">Install CSL</a> · <a href="#demo">Read an executed example</a> · <a href="https://github.com/vitral-ai/codex-session-librarian#readme">User guide</a></p>
-      <p class="release-note"><a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.0">CSL 0.1.0 is published</a>, from commit <a href="https://github.com/vitral-ai/codex-session-librarian/commit/edd05bb20eb145dea6178d548f1363b9516102af"><code>edd05bb</code></a>. Its integrated runtime passed 253 isolated tests with native and media checks enabled; the <a href="https://github.com/vitral-ai/codex-session-librarian/actions/runs/42111325453">publication commit CI passed</a>. Installation from the published tag and the offline demonstration were verified in a clean temporary environment on Linux.</p>
+      <p class="release-note"><a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.1">CSL 0.1.1 is published</a>, from commit <a href="https://github.com/vitral-ai/codex-session-librarian/commit/318332bfe73c5b585651b39b9bd258927e65df22"><code>318332b</code></a>. Its runtime passed 268 isolated tests with native and media checks enabled; the <a href="https://github.com/vitral-ai/codex-session-librarian/actions/runs/42692728883">publication commit CI passed</a>. Tested with Codex 0.167.0 and Claude Code 2.1.308 on Linux, without new model calls. The patch includes historical-tool display and readable tool-result recall.</p>
     </section>
 
     <section id="install">
       <h2>Getting started</h2>
       <p>You need Linux, Git and Python 3.11 or later. The core uses the Python standard library; there is no pip install or virtual environment to set up. Run the following in the directory where you keep your tools:</p>
       <div class="code-heading"><span>Install the integrated November 5 snapshot</span><button type="button" data-copy="install-commands">Copy</button></div>
-      <pre><code id="install-commands">git clone --branch v0.1.0 https://github.com/vitral-ai/codex-session-librarian.git
+      <pre><code id="install-commands">git clone --branch v0.1.1 https://github.com/vitral-ai/codex-session-librarian.git
 cd codex-session-librarian
-git checkout --detach v0.1.0
+git checkout --detach v0.1.1
 ./install.sh
 
 # If ~/.local/bin is not already on PATH:
 export PATH="$HOME/.local/bin:$PATH"
 csl --help</code></pre>
-      <p>This installs the published <a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.0"><code>v0.1.0</code></a> tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is only needed for the optional team exchange; ZIP transfers work without it.</p>
+      <p>This installs the published <a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.1"><code>v0.1.1</code></a> tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is only needed for the optional team exchange; ZIP transfers work without it.</p>
       <p>For command-by-command options, see the <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
     </section>
 
@@ -120,7 +120,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
           <tr><td>Embedded image and PDF conversion</td><td>Supported profile; optional decoder required</td></tr>
         </tbody>
       </table>
-      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The release's <a href="https://github.com/vitral-ai/codex-session-librarian/blob/v0.1.0/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/vitral-ai/codex-session-librarian/blob/v0.1.0/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
+      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The release's <a href="https://github.com/vitral-ai/codex-session-librarian/blob/v0.1.1/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/vitral-ai/codex-session-librarian/blob/v0.1.1/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
     </section>
 
     <section id="demo">
@@ -151,7 +151,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
     <section id="project">
       <h2>The project</h2>
       <p>CSL is a project by <a href="https://vitral.ai">Vitral</a>. It grew out of the practical need to locate and hand over useful agent conversations. The tool can be used independently of Vitral’s workspace product.</p>
-      <p>CSL is licensed under <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/LICENSE">Apache-2.0</a>, with Vitral attribution. The published version is <a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.0">v0.1.0</a>. Later changes on main, including the issue #7 historical-tool display correction and its expanded 260-test validation, are Unreleased and are not included in that tag. The released runtime retains its 253-test validation record.</p>
+      <p>CSL is licensed under <a href="https://github.com/vitral-ai/codex-session-librarian/blob/main/LICENSE">Apache-2.0</a>, with Vitral attribution. The published version is <a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.1">v0.1.1</a>. Version <a href="https://github.com/vitral-ai/codex-session-librarian/releases/tag/v0.1.0">v0.1.0</a> remains available unchanged with its 253-test record. Later main changes require a separate release; model continuation and human usability remain separate evidence.</p>
       <p>Contributions should start with a reproducible problem, synthetic history and a focused change. Reports about a real workflow are useful; please do not post private conversation exports or credentials in public issues. The <a href="https://github.com/vitral-ai/codex-session-librarian/issues">issue tracker</a> is the place for public bug reports and proposals.</p>
       <p>Codex and Claude Code are products of their respective owners. Their software, services and marks are not licensed by the CSL project.</p>
     </section>
