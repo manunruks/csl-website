@@ -36,7 +36,7 @@
     <div class="sidebar-links">
       <a href="https://github.com/vitral-ai/context-session-librarian">Source code</a>
       <a href="https://github.com/vitral-ai/context-session-librarian/issues">Issue tracker</a>
-      <a href="https://github.com/vitral-ai/context-session-librarian/blob/main/docs/COMMANDS.md">Command reference</a>
+      <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/COMMANDS.md">Command reference</a>
     </div>
     <p class="sidebar-note">Linux · Python 3.11+<br>No CSL account required.</p>
   </aside>
@@ -65,7 +65,7 @@ git checkout --detach v0.2.2
 export PATH="$HOME/.local/bin:$PATH"
 csl --version</code></pre>
       <p>This installs the published <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.2.2"><code>v0.2.2</code></a> tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is needed for the optional team exchange and encrypted backup; local library and ZIP transfers work without it. Installing CSL does not activate backups or timers.</p>
-      <p>For command-by-command options, see the <a href="https://github.com/vitral-ai/context-session-librarian/blob/main/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/vitral-ai/context-session-librarian/blob/main/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
+      <p>For command-by-command options, see the <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
     </section>
 
     <section id="finding">
@@ -77,7 +77,7 @@ csl show SESSION_UUID --tail 10 --include-assistant
 csl why SESSION_UUID "database migration"</code></pre>
       <p><code>show --tail N</code> reads the last N messages from the full conversation, after filtering roles. Add <code>--reverse</code> to read that selection newest first; omit <code>--include-assistant</code> for user messages only. The count is messages, not exchanges.</p>
       <p>When you inspect a particular copy or fork with <code>why</code>, matching inherited evidence is included and labeled. Global searches reduce duplicate inherited results. To search tool output, use words from the result and add <code>--type tool_result</code>; that flag selects a category, not a literal search word.</p>
-      <p>Search is lexical, not embedding-based semantic search. Read the matching evidence before deciding which instruction is current. Claude currently has basic discovery through <code>csl sessions --provider claude</code>, rather than the complete Codex library command set. See the <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/COMMANDS.md">command reference</a>.</p>
+      <p>Search is lexical, not embedding-based semantic search. Read the matching evidence before deciding which instruction is current. Claude currently has basic discovery through <code>csl sessions --provider claude</code>, rather than the complete Codex library command set. See the <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/COMMANDS.md">command reference</a>.</p>
     </section>
 
     <section id="handoff">
@@ -135,7 +135,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
           <tr><td>Embedded image and PDF conversion</td><td>Supported profile; optional decoder required</td></tr>
         </tbody>
       </table>
-      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The release's <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
+      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The maintained <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
     </section>
 
     <section id="demo">
