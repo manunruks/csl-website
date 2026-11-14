@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Context Session Librarian</title>
-  <meta name="description" content="A local tool for finding, forking and transferring coding-agent sessions. Native Codex and Claude Code handoffs, with experimental cross-CLI conversion.">
+  <meta name="description" content="Find, preserve and transfer coding-agent sessions. Coordinate existing Codex agents through an optional experimental bridge.">
   <link rel="canonical" href="https://csl.vitral.ai/">
   <meta property="og:url" content="https://csl.vitral.ai/">
   <meta property="og:title" content="Context Session Librarian">
@@ -27,6 +27,7 @@
       <a href="#finding">Finding a session</a>
       <a href="#handoff">Passing work on</a>
       <a href="#forks">Working forks</a>
+      <a href="#bridge">Live agent coordination</a>
       <a href="#backup">Encrypted backup</a>
       <a href="#conversion">CLI conversion</a>
       <a href="#demo">Worked example</a>
@@ -36,7 +37,7 @@
     <div class="sidebar-links">
       <a href="https://github.com/vitral-ai/context-session-librarian">Source code</a>
       <a href="https://github.com/vitral-ai/context-session-librarian/issues">Issue tracker</a>
-      <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/COMMANDS.md">Command reference</a>
+      <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/COMMANDS.md">Command reference</a>
     </div>
     <p class="sidebar-note">Linux · Python 3.11+<br>No CSL account required.</p>
   </aside>
@@ -48,24 +49,25 @@
       <p>A useful conversation contains more than its last answer. It records decisions, discarded approaches, tool results and the reasons a project ended up where it did. CSL helps you find that conversation and continue working from its native history.</p>
       <p>You can reopen a Codex session, make an independent working copy, or hand a snapshot to another person. Native transfers support Codex and Claude Code. An explicit, experimental conversion path also moves supported history between the two CLIs.</p>
       <p>CSL works with local JSONL records. It does not host your conversations or ask you to create another account. The receiving CLI uses its own authentication, configuration and tools.</p>
+      <p>For live work, an optional experimental bridge lets existing Codex agents exchange tasks, questions and results while each keeps its own conversation and tools. This is a separate workflow from handing over a saved session.</p>
       <p class="reading-links"><a href="#install">Install CSL</a> · <a href="#demo">Read an executed example</a> · <a href="https://github.com/vitral-ai/context-session-librarian#readme">User guide</a></p>
-      <p class="release-note"><a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.2.2">CSL 0.2.2 is published</a>. Read the end of long conversations, find inherited evidence in copies, and choose <code>scrub-all</code> during secret review. Installation now shows its version and helps identify another <code>csl</code> on your PATH. See the <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.2.2">release notes</a> for changes and upgrade guidance.</p>
+      <p class="release-note"><a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.3.0">CSL 0.3.0 is published</a>. Coordinate existing Codex agents with the experimental bridge, and read clearer summaries of what a transfer preserves, transforms or cannot assess. Read the <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.3.0">release notes</a> and choose the workflow that matches your task.</p>
     </section>
 
     <section id="install">
       <h2>Getting started</h2>
       <p>You need Linux, Git and Python 3.11 or later. The core uses the Python standard library; there is no pip install or virtual environment to set up. Run the following in the directory where you keep your tools:</p>
-      <div class="code-heading"><span>Install the published v0.2.2 release</span><button type="button" data-copy="install-commands">Copy</button></div>
-      <pre><code id="install-commands">git clone --branch v0.2.2 https://github.com/vitral-ai/context-session-librarian.git
+      <div class="code-heading"><span>Install the published v0.3.0 release</span><button type="button" data-copy="install-commands">Copy</button></div>
+      <pre><code id="install-commands">git clone --branch v0.3.0 https://github.com/vitral-ai/context-session-librarian.git
 cd context-session-librarian
-git checkout --detach v0.2.2
+git checkout --detach v0.3.0
 ./install.sh
 
 # If ~/.local/bin is not already on PATH:
 export PATH="$HOME/.local/bin:$PATH"
 csl --version</code></pre>
-      <p>This installs the published <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.2.2"><code>v0.2.2</code></a> tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is needed for the optional team exchange and encrypted backup; local library and ZIP transfers work without it. Installing CSL does not activate backups or timers.</p>
-      <p>For command-by-command options, see the <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
+      <p>This installs the published <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.3.0"><code>v0.3.0</code></a> tag. Keep the checkout: the installed launcher points to it. To follow ongoing development instead, use <code>git switch main</code> and <code>git pull --ff-only</code> in a clean checkout. Reopening a session requires the corresponding CLI and your own login. GitHub CLI is needed for the optional team exchange and encrypted backup; local library and ZIP transfers work without it. Installing CSL does not activate backups or timers.</p>
+      <p>For command-by-command options, see the <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/COMMANDS.md">command reference</a>. <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/TEAM_INSTALL.md">Team installation</a> covers shared use.</p>
     </section>
 
     <section id="finding">
@@ -77,7 +79,7 @@ csl show SESSION_UUID --tail 10 --include-assistant
 csl why SESSION_UUID "database migration"</code></pre>
       <p><code>show --tail N</code> reads the last N messages from the full conversation, after filtering roles. Add <code>--reverse</code> to read that selection newest first; omit <code>--include-assistant</code> for user messages only. The count is messages, not exchanges.</p>
       <p>When you inspect a particular copy or fork with <code>why</code>, matching inherited evidence is included and labeled. Global searches reduce duplicate inherited results. To search tool output, use words from the result and add <code>--type tool_result</code>; that flag selects a category, not a literal search word.</p>
-      <p>Search is lexical, not embedding-based semantic search. Read the matching evidence before deciding which instruction is current. Claude currently has basic discovery through <code>csl sessions --provider claude</code>, rather than the complete Codex library command set. See the <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/COMMANDS.md">command reference</a>.</p>
+      <p>Search is lexical, not embedding-based semantic search. Read the matching evidence before deciding which instruction is current. Claude currently has basic discovery through <code>csl sessions --provider claude</code>, rather than the complete Codex library command set. See the <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/COMMANDS.md">command reference</a>.</p>
     </section>
 
     <section id="handoff">
@@ -99,7 +101,7 @@ csl export SESSION_UUID --to ~/Downloads/handoff.csl.zip
 # Recipient: use the received file and an existing project directory
 csl import ~/Downloads/handoff.csl.zip --list
 csl import ~/Downloads/handoff.csl.zip --cwd ~/work/project --open</code></pre>
-      <p>A ZIP is a local snapshot, not encrypted backup. Packages contain supported conversation records and embedded assets; they do not copy project files, installed tools, credential files or external attachments. Read <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/TRANSFERS.md">transfers</a> and <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/SHARING.md">team sharing</a> for details.</p>
+      <p>A ZIP is a local snapshot, not encrypted backup. Packages contain supported conversation records and embedded assets; they do not copy project files, installed tools, credential files or external attachments. Read <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/TRANSFERS.md">transfers</a> and <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/SHARING.md">team sharing</a> for details.</p>
     </section>
 
     <section id="forks">
@@ -110,11 +112,20 @@ csl import ~/Downloads/handoff.csl.zip --cwd ~/work/project --open</code></pre>
       <p>Clones receive a fresh UUID. For background agent work, <code>--visibility agent</code> keeps the new copy outside the default interactive picker; an archived snapshot is another explicit option. Visibility is presentation, not access control or filesystem isolation. CSL does not automatically delete copies.</p>
     </section>
 
+    <section id="bridge">
+      <h2>Coordinate agents in their existing conversations</h2>
+      <p>Ask another Codex agent to investigate a question, receive its progress, answer a clarification and collect its result. The optional bridge supports follow-up tasks, messages, status, interruption and continuation in the registered conversation. It can connect trusted computers over an explicitly configured SSH transport.</p>
+      <pre><code>csl bridge --help</code></pre>
+      <p>Setup is explicit: each side needs an existing, supported Codex runtime, a registered conversation and an authorized connection. The optional MCP adapter exposes coordination tools to the model. Installing CSL alone does not connect agents, open a network listener or start a service.</p>
+      <p>Live Codex-to-Codex coordination has been exercised between Linux and macOS on a local network, including a clarification, interruption and resumption. Internet operation and live Claude-to-Codex coordination have not been validated. macOS app source is included for development; there is no verified downloadable app yet. Automatic delivery into the caller depends on its host integration; the bridge does not wake every possible chat interface.</p>
+      <p>Read the <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/BRIDGE.md">bridge setup and limits</a> before connecting a real session. Peers keep their own accounts and permissions. Review what you send: communication can disclose task text and model output.</p>
+    </section>
+
     <section id="backup">
       <h2>Encrypted backup</h2>
       <p>Experimental manual backup for Linux/Codex preserves session checkpoints in encrypted containers in an existing private GitHub repository. Incremental runs capture changes; recovery uses a separately retained external key. This is distinct from sending a ZIP or sharing one conversation.</p>
       <p>Backup requires GitHub CLI, an explicitly installed age 1.3.2 and operational plus external recovery recipients. Keep the recovery identity outside the source computer. It backs up supported session history, not your repositories, credentials or complete development environment. There are no automatic timers or retention cleanup in this release.</p>
-      <p>Before updating CSL, finish pending backup runs and recipient-change plans with their original version. The next backup after an update captures local conversations again; older checkpoints still need their original recovery keys. Follow the <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/BACKUP.md">setup and recovery manual</a> before enabling backup.</p>
+      <p>Before updating CSL, finish pending backup runs and recipient-change plans with their original version. The next backup after an update captures local conversations again; older checkpoints still need their original recovery keys. Follow the <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/BACKUP.md">setup and recovery manual</a> before enabling backup.</p>
     </section>
 
     <section id="conversion">
@@ -123,6 +134,7 @@ csl import ~/Downloads/handoff.csl.zip --cwd ~/work/project --open</code></pre>
       <pre><code>csl convert SESSION_UUID --to claude --cwd ~/work/project
 csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
       <p>Conversion supports a bounded profile of text, completed tools, references, embedded images and PDFs. Media conversion needs an optional isolated decoder. Unsupported or inconsistent state can be rejected; CSL does not silently promise to recover an entire opaque checkpoint.</p>
+      <p>Transfer and conversion output includes a conservation summary: recognized messages and tool relationships, known transformations or omissions, and what was not assessed. Read it before continuing. A successful structural check does not prove that the destination CLI loads the session or that a model can recover every historical fact. For recent Claude conversations moving to Codex on one computer, a native import may be sufficient; the <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/NATIVE_IMPORT_COMPARISON.md">workflow comparison</a> explains when CSL adds value.</p>
       <table>
         <caption>Current scope at a glance</caption>
         <thead><tr><th>Operation</th><th>Scope</th></tr></thead>
@@ -130,12 +142,13 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
           <tr><td>Native ZIP and team transfers</td><td>Codex and Claude Code</td></tr>
           <tr><td>Indexed search and evidence recall</td><td>Codex; not the full Claude library</td></tr>
           <tr><td>Native working forks</td><td>Codex; experimental native format</td></tr>
+          <tr><td>Live agent coordination</td><td>Experimental Codex bridge; Linux–macOS LAN exercised, explicit runtime and transport setup required</td></tr>
           <tr><td>Manual encrypted backup</td><td>Linux/Codex; experimental, optional age and private GitHub required</td></tr>
           <tr><td>Cross-CLI conversion</td><td>Explicit and experimental in both directions</td></tr>
           <tr><td>Embedded image and PDF conversion</td><td>Supported profile; optional decoder required</td></tr>
         </tbody>
       </table>
-      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The maintained <a href="https://github.com/vitral-ai/context-session-librarian/blob/7615118d21586e846972449bbe07afcfd5c0b45d/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
+      <p>In CSL, <code>--provider</code> selects or asserts the source CLI; it does not request conversion. Use <code>--target</code> or <code>--to</code> for that. The maintained <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/PROVIDER_MATRIX.md">provider matrix</a> and <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/docs/CONVERSION.md">conversion contract</a> describe the full boundaries.</p>
     </section>
 
     <section id="demo">
@@ -166,7 +179,7 @@ csl receive SHARE_ID --target codex --cwd ~/work/project --open</code></pre>
     <section id="project">
       <h2>The project</h2>
       <p>CSL is a project by <a href="https://vitral.ai">Vitral</a>. It grew out of the practical need to locate and hand over useful agent conversations. The tool can be used independently of Vitral’s workspace product.</p>
-      <p>CSL is licensed under <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.2.2/LICENSE">Apache-2.0</a>, with Vitral attribution. The published version is <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.2.2">v0.2.2</a>, with experimental manual encrypted backup. Versions <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.1.1">v0.1.1</a> and <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.1.0">v0.1.0</a> remain available unchanged.</p>
+      <p>CSL is licensed under <a href="https://github.com/vitral-ai/context-session-librarian/blob/v0.3.0/LICENSE">Apache-2.0</a>, with Vitral attribution. The published version is <a href="https://github.com/vitral-ai/context-session-librarian/releases/tag/v0.3.0">v0.3.0</a>, including optional experimental agent coordination and manual encrypted backup. Previous releases remain available unchanged.</p>
       <p>Contributions should start with a reproducible problem, synthetic history and a focused change. Reports about a real workflow are useful; please do not post private conversation exports or credentials in public issues. The <a href="https://github.com/vitral-ai/context-session-librarian/issues">issue tracker</a> is the place for public bug reports and proposals.</p>
       <p>Codex and Claude Code are products of their respective owners. Their software, services and marks are not licensed by the CSL project.</p>
     </section>
